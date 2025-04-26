@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shimmer/shimmer.dart';
-import '../../blocs/news_bloc.dart';
-import '../../models/news_model.dart';
-import '../details/details_screen.dart';
-import 'news_card.dart';
-import 'package:news_app/widgets/shimmers/shimmer_news_card.dart';
 import 'package:news_app/blocs/news_event.dart';
 import 'package:news_app/blocs/news_state.dart';
 import 'package:news_app/widgets/error_view.dart';
+import 'package:news_app/widgets/shimmers/shimmer_news_card.dart';
+
+import '../../blocs/news_bloc.dart';
+import 'news_card.dart';
 
 class ListingScreen extends StatefulWidget {
   const ListingScreen({super.key});

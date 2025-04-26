@@ -10,13 +10,6 @@ class DetailsScreen extends StatelessWidget {
 
   const DetailsScreen({super.key, required this.news});
 
-  Future<void> _launchUrl() async {
-    final Uri url = Uri.parse(news.url);
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch ${news.url}');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
