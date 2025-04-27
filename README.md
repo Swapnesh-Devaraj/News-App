@@ -4,14 +4,15 @@ A Flutter application that displays news articles with optimized image handling 
 
 ## Features
 
-- Splash screen with 1-second delay
+- Modern and responsive UI with a stylish app bar
 - News listing in a grid layout with optimized image loading
-- Detailed view with pinch-to-zoom image viewing
+- Pull-to-refresh functionality
+- Infinite scrolling with pagination
 - BLoC architecture for state management
 - Image caching for better performance
 - Memory optimizations for handling large datasets
-- Unit tests and widget tests
 - Beautiful loading animations with shimmer effects
+- Error handling with retry functionality
 
 ## Getting Started
 
@@ -42,7 +43,12 @@ The app follows the BLoC (Business Logic Component) pattern for state management
 - **Repository**: Handles data fetching and caching
 - **BLoC**: Manages the state and business logic
 - **Screens**: UI components
+  - ListingScreen: Grid view of news articles
+  - PhotoView: Detailed view of news articles
 - **Widgets**: Reusable UI components
+  - NewsCard: Card widget for displaying news items
+  - ErrorView: Error handling widget
+  - ShimmerNewsCard: Loading animation widget
 
 ## Image Optimization
 
@@ -81,7 +87,9 @@ The app includes:
 ## Performance Considerations
 
 - Images are cached both in memory and on disk
-- Grid view uses lazy loading
+- Grid view uses lazy loading with pagination
 - Images are resized for thumbnails
 - Efficient state management with BLoC
 - Proper error handling and fallbacks
+- Pull-to-refresh for data updates
+- Infinite scrolling with optimized loading

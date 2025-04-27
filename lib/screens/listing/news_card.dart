@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../models/news_model.dart';
-import '../details/details_screen.dart';
+import '../details/photoview.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsModel news;
@@ -15,7 +15,7 @@ class NewsCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailsScreen(news: news),
+            builder: (context) => PhotoViewScreen(news: news),
           ),
         );
       },

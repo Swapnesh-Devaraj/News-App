@@ -56,7 +56,35 @@ class _ListingScreenState extends State<ListingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News'),
+        title: const Row(
+          children: [
+            Icon(
+              Icons.newspaper,
+              size: 28,
+              color: Colors.blue,
+            ),
+            SizedBox(width: 8),
+            Text(
+              'News',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            Text(
+              'App',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
       ),
       body: RefreshIndicator(
         onRefresh: _refreshNews,

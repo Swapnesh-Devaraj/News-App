@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'blocs/news_bloc.dart';
 import 'repositories/news_repository.dart';
@@ -10,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Load environment variables from .env file
-  // await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");
 
   final prefs = await SharedPreferences.getInstance();
   runApp(MyApp(repository: NewsRepository(prefs)));
