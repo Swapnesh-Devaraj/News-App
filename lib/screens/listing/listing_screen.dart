@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/blocs/news_event.dart';
 import 'package:news_app/blocs/news_state.dart';
+import 'package:news_app/config/app_constants.dart';
 import 'package:news_app/widgets/error_view.dart';
 import 'package:news_app/widgets/shimmers/shimmer_news_card.dart';
 
@@ -65,7 +66,7 @@ class _ListingScreenState extends State<ListingScreen> {
             ),
             SizedBox(width: 8),
             Text(
-              'News',
+              AppConstants.appTitleNews,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -73,7 +74,7 @@ class _ListingScreenState extends State<ListingScreen> {
               ),
             ),
             Text(
-              'App',
+              AppConstants.appTitleApp,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

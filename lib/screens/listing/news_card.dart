@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../models/news_model.dart';
 import '../details/photoview.dart';
+import '../../config/app_constants.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsModel news;
@@ -26,7 +27,7 @@ class NewsCard extends StatelessWidget {
           children: [
             Expanded(
               child: Hero(
-                tag: 'news_image_${news.id}',
+                tag: '${AppConstants.newsCardHeroTagPrefix}${news.id}',
                 child: CachedNetworkImage(
                   imageUrl: news.imageUrl,
                   fit: BoxFit.cover,
@@ -56,11 +57,11 @@ class NewsCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Image not available',
+                            AppConstants.newsCardImageNotAvailable,
                             style: TextStyle(
                               color: Colors.blue.shade700,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                              fontSize: AppConstants.newsCardSourceFontSize,
+                              fontWeight: AppConstants.newsCardTitleFontWeight,
                             ),
                           ),
                         ],
@@ -80,8 +81,8 @@ class NewsCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                      fontWeight: AppConstants.newsCardTitleFontWeight,
+                      fontSize: AppConstants.newsCardTitleFontSize,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -89,7 +90,7 @@ class NewsCard extends StatelessWidget {
                     news.source,
                     style: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 12,
+                      fontSize: AppConstants.newsCardSourceFontSize,
                     ),
                   ),
                 ],

@@ -14,8 +14,9 @@ class AppConstants {
   // NewsCard
   static const double newsCardTitleFontSize = 14;
   static const double newsCardSourceFontSize = 12;
-  static const double newsCardTitleFontWeight = FontWeight.bold;
-  static const double newsCardPadding = 8.0;
+  static const FontWeight newsCardTitleFontWeight = FontWeight.bold;
+  static const String newsCardImageNotAvailable = 'Image not available';
+  static const String newsCardHeroTagPrefix = 'news_image_';
 
   // PhotoViewScreen
   static const int blurAlpha = 77; // 0.3 opacity = 77/255
