@@ -26,7 +26,7 @@ class NewsCard extends StatelessWidget {
           children: [
             Expanded(
               child: Hero(
-                tag: 'news_image_${news.id}',
+                tag: 'news_image_${news.id}',
                 child: CachedNetworkImage(
                   imageUrl: news.imageUrl,
                   fit: BoxFit.cover,
@@ -34,7 +34,39 @@ class NewsCard extends StatelessWidget {
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.blue.shade100,
+                          Colors.blue.shade50,
+                        ],
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.newspaper_rounded,
+                            size: 48,
+                            color: Colors.blue.shade300,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Image not available',
+                            style: TextStyle(
+                              color: Colors.blue.shade700,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
