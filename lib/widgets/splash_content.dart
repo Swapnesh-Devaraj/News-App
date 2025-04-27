@@ -22,8 +22,6 @@ class SplashContent extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 24),
-          CircularProgressIndicator(),
         ],
       ),
     );
