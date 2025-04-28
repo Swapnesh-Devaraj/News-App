@@ -23,42 +23,44 @@ class NewsRepository {
 
   NewsRepository(this.prefs);
 
+  Future<NewsResponse> _fetchNewsFromApi(
+      {required int page, required int pageSize}) async {
+    final apiKey = ApiConfig.apiKey;
+    if (apiKey.isEmpty) {
+      throw Exception(
+          'API key not found. Please set the NEWS_API_KEY environment variable.');
+    }
+    final response = await http.get(
+      Uri.parse(
+          '${ApiConfig.baseUrl}/all?api_token=$apiKey&page=$page&limit=$pageSize'),
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final news = (data['data'] as List)
+          .map((item) => NewsModel.fromJson(item))
+          .toList();
+      final meta = data['meta'] as Map<String, dynamic>;
+      final totalFound = meta['found'] as int;
+      final warnings = data['warnings'] as List?;
+      final hasLimitWarning = warnings?.any((warning) => warning
+              .toString()
+              .contains('limit is higher than your plan allows')) ??
+          false;
+      return NewsResponse(
+        news: news,
+        totalFound: totalFound,
+        hasLimitWarning: hasLimitWarning,
+      );
+    } else {
+      throw Exception('Failed to load news');
+    }
+  }
+
   Future<NewsResponse> getNews({int page = 0, int pageSize = 20}) async {
     try {
-      final apiKey = ApiConfig.apiKey;
-      if (apiKey.isEmpty) {
-        throw Exception(
-            'API key not found. Please set the NEWS_API_KEY environment variable.');
-      }
-
-      final response = await http.get(
-        Uri.parse(
-            '${ApiConfig.baseUrl}/all?api_token=$apiKey&page=$page&limit=$pageSize'),
-      );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        final news = (data['data'] as List)
-            .map((item) => NewsModel.fromJson(item))
-            .toList();
-
-        final meta = data['meta'] as Map<String, dynamic>;
-        final totalFound = meta['found'] as int;
-
-        final warnings = data['warnings'] as List?;
-        final hasLimitWarning = warnings?.any((warning) => warning
-                .toString()
-                .contains('limit is higher than your plan allows')) ??
-            false;
-
-        return NewsResponse(
-          news: news,
-          totalFound: totalFound,
-          hasLimitWarning: hasLimitWarning,
-        );
-      } else {
-        throw Exception('Failed to load news');
-      }
+      final newsResponse =
+          await _fetchNewsFromApi(page: page, pageSize: pageSize);
+      return newsResponse;
     } catch (e) {
       final cachedData = getCachedNews();
       if (cachedData != null) {
@@ -108,38 +110,12 @@ class NewsRepository {
       }
     }
     try {
-      final apiKey = ApiConfig.apiKey;
-      if (apiKey.isEmpty) {
-        throw Exception(
-            'API key not found. Please set the NEWS_API_KEY environment variable.');
+      final newsResponse =
+          await _fetchNewsFromApi(page: page, pageSize: pageSize);
+      if (page == 1) {
+        cacheNews(newsResponse.news);
       }
-      final response = await http.get(
-        Uri.parse(
-            '${ApiConfig.baseUrl}/all?api_token=$apiKey&page=$page&limit=$pageSize'),
-      );
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        final news = (data['data'] as List)
-            .map((item) => NewsModel.fromJson(item))
-            .toList();
-        final meta = data['meta'] as Map<String, dynamic>;
-        final totalFound = meta['found'] as int;
-        final warnings = data['warnings'] as List?;
-        final hasLimitWarning = warnings?.any((warning) => warning
-                .toString()
-                .contains('limit is higher than your plan allows')) ??
-            false;
-        if (page == 1) {
-          cacheNews(news);
-        }
-        yield NewsResponse(
-          news: news,
-          totalFound: totalFound,
-          hasLimitWarning: hasLimitWarning,
-        );
-      } else {
-        throw Exception('Failed to load news');
-      }
+      yield newsResponse;
     } catch (e) {
       if (page == 1) {
         final cached = getCachedNews();
